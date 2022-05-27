@@ -10,23 +10,28 @@
 	display: flex;
 	flex-direction: column;
 	text-align: center;
-	background-color: #dcdcdc;
+	background-color: #fafafa;
 	padding: 30px;
+	border: 2px solid grey;
+	border-radius: 10px;
+
 }
 
 .login__textBox {
 	padding: 10px;
-	font-size: 18px;
+	font-size: 16px;
 	margin-bottom: 10px;
 }
 
 .login__btn {
 	padding: 10px;
-	font-size: 18px;
+	font-size: 16px;
 	margin-bottom: 10px;
 	border: none;
+	border-radius: 10px;
 	color: white;
-	background-color: black;
+	font-weight: 700;
+	background-color: #45bd6d;
 }
 
 .login__google {
@@ -36,3 +41,12 @@
 .login div {
 	margin-top: 7px;
 }
+/* .heads{
+	font-style: italic;
+	font-family: cursive;
+	font-size: 28px;
+	font-weight: 800;
+	color: #5c0af5;
+	display: flex;
+	justify-content: center;
+} */

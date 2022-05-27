@@ -1,5 +1,5 @@
 import NavBar from "./NavBar";
-import Build from "./Build";
+import Footer from "./Footer";
 import { useLocation } from 'react-router-dom';
 import { MdLocalGroceryStore } from 'react-icons/md';
 import { GiHealing } from 'react-icons/gi';
@@ -51,6 +51,7 @@ function Example() {
 					</div>
 				</div>
 			</div>
+			<Footer/>
 		</>
 	);
 }
