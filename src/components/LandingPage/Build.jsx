@@ -3,11 +3,20 @@ import React from 'react';
 import { DiAndroid } from 'react-icons/di';
 import { SiIos } from 'react-icons/si';
 import { GoBrowser } from 'react-icons/go';
-import { ArrowSmRightIcon } from '@heroicons/react/outline';
+import { Link, useNavigate } from "react-router-dom";
 
 import supportImg from '../assets/build-bg.png'
-
 const Support = () => {
+	const navigate = useNavigate();
+	const Android = () => {
+		navigate('/example', { state: { name: 'Android' } });
+	}
+	const Web = () => {
+		navigate('/example', { state: { name: 'Web' } });
+	}
+	const IOS = () => {
+		navigate('/example', { state: { name: 'IOS' } });
+	}
 	return (
 		<div name='build' className='w-full mt-24'>
 			<div className='w-full h-[700px] bg-gray-900/90 absolute'>
@@ -28,7 +37,7 @@ const Support = () => {
 							<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
 						</div>
 						<div className='bg-slate-100 pl-8 py-4'>
-							<p className='flex items-center text-indigo-600'>Build Android Application<ArrowSmRightIcon className='w-5 ml-2' /></p>
+							<p><a className='flex items-center text-indigo-600' onClick={() => { Android() }}>Build Android Application</a></p>
 						</div>
 					</div>
 					<div className='bg-white rounded-xl shadow-2xl'>
@@ -38,7 +47,7 @@ const Support = () => {
 							<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
 						</div>
 						<div className='bg-slate-100 pl-8 py-4'>
-							<p className='flex items-center text-indigo-600'>Build Web Application<ArrowSmRightIcon className='w-5 ml-2' /></p>
+							<p><a className='flex items-center text-indigo-600' onClick={() => { Web() }}>Build Web Application</a></p>
 						</div>
 					</div>
 					<div className='bg-white rounded-xl shadow-2xl'>
@@ -48,7 +57,7 @@ const Support = () => {
 							<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
 						</div>
 						<div className='bg-slate-100 pl-8 py-4'>
-							<p className='flex items-center text-indigo-600'>Build Desktop Application<ArrowSmRightIcon className='w-5 ml-2' /></p>
+							<p><a className='flex items-center text-indigo-600' onClick={() => { IOS() }}>Build IOS Application</a></p>
 						</div>
 					</div>
 				</div>

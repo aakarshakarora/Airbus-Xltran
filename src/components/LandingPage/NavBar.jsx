@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-scroll'
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { logout } from "../../firebase";
