@@ -1,8 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Container, Form, Modal} from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';	
+
 
 
 function BitCoinForm() {
+
+	let navigate = useNavigate();
+
     let generatedCode = "";
 
     const [getCode, setGenCode] = useState("")
@@ -284,6 +289,7 @@ class ${projectName.replaceAll(' ', '')} extends StatelessWidget {
 
         setGenCode(generatedCode)
         downloadTxtFile(generatedCode, AppTitle);
+        navigate("/output",{state:generatedCode});
 
     }
 
@@ -436,7 +442,7 @@ class ${projectName.replaceAll(' ', '')} extends StatelessWidget {
                             className="btn btn-primary"
                             id="but"
                             onClick={onSubmit}
-                            disabled={APIKey === "" || AppTitle === "" || bottomContainerColor === "" || selectCurrencyFontColor === "" || coinCardColor === "" || cardTextColor === ""}
+                            disabled={!APIKey || !AppTitle || !bottomContainerColor  || !selectCurrencyFontColor  || !coinCardColor  || !cardTextColor || !projectName }
                         >
                             Submit
                         </button>
@@ -445,7 +451,7 @@ class ${projectName.replaceAll(' ', '')} extends StatelessWidget {
                             className="btn btn-danger"
                             style={{marginLeft: "20px"}}
 
-                            disabled={APIKey === "" || AppTitle === "" || bottomContainerColor === "" || selectCurrencyFontColor === "" || coinCardColor === "" || cardTextColor === ""}
+                            disabled={!APIKey && !AppTitle && !bottomContainerColor && !selectCurrencyFontColor && !coinCardColor && !cardTextColor && !projectName}
 
                         >
                             Reset

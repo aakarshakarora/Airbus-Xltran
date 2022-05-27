@@ -13,7 +13,7 @@ const NavBar = () => {
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Container className="justify-content-center">
 							<Nav className="me-auto">
-								<Nav.Link><Link to="home" smooth={true} duration={500}><span className='h5'>Home</span></Link></Nav.Link>
+								<Nav.Link><Link to="/dashboard" smooth={true} duration={500}><span className='h5'>Home</span></Link></Nav.Link>
 								<Nav.Link><Link to="about" smooth={true} offset={-200} duration={500}><span className='h5'>About</span></Link></Nav.Link>
 								<Nav.Link><Link to="build" smooth={true} offset={-50} duration={500}><span className='h5'>Build</span></Link></Nav.Link>
 							</Nav>

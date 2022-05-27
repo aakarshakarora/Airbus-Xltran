@@ -1,165 +1,166 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Form, Modal } from "react-bootstrap";
-
-function AppStart(projectName, appBarText, AppBarBackgroundColor, InputAreaBgColor, labelTextforHeightEntry, labelTextforWeightEntry, elevatedButtonColor, elevatedButtonText, elevatedButtonTextColor, calculatedBMIresultColor, inferenceBMIresultColor) {
-
-    return `
-import 'package:flutter/material.dart';
-class ${projectName.replaceAll(' ', '')} extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return ${projectName.replaceAll(' ', '')}State();
-  }
-}
-
-class ${projectName.replaceAll(' ', '')}State extends State<${projectName.replaceAll(' ', '')}> {
-  final TextEditingController weightController = TextEditingController();
-  final TextEditingController heightController = TextEditingController();
-  double bmi = 0;
-  String bmiResult = "";
-
-  void calculateBMI() {
-    setState(() {
-      double weight = double.parse(weightController.text);
-      double height = double.parse(heightController.text);
-      if ((weightController.text.isNotEmpty || weight > 0) &&
-          (heightController.text.isNotEmpty || height > 0)) {
-        bmi = ((weight / (height * height)) * 10000.0);
-      } else {
-        bmi = 0.0;
-      }
-      if (bmi < 18.5) {
-        bmiResult = "You are underweight";
-      } else if (bmi >= 18.5 && bmi < 25.0) {
-        bmiResult = "Normal weight";
-      } else if (bmi >= 25.0 && bmi < 30.0) {
-        bmiResult = "Overweight";
-      } else {
-        bmiResult = "Obese";
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("${appBarText}"),
-        centerTitle: true,
-        backgroundColor: Colors.${AppBarBackgroundColor},
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        child: ListView(
-          padding: const EdgeInsets.all(3.0),
-          children: <Widget>[
-            Image.network(
-              'https://cdn-icons-png.flaticon.com/512/3373/3373123.png',
-              height: 75.0,
-              width: 75.0,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            
-            Card(
-              color: Colors.${InputAreaBgColor},
-              child: Padding(
-                padding: const EdgeInsets.all(13.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    TextField(
-                      controller: heightController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: "${labelTextforHeightEntry}",
-                        hintText: "172",
-                        icon: Icon(Icons.account_box),
-                      ),
-                    ),
-                    TextField(
-                      controller: weightController,
-                      keyboardType: const TextInputType.numberWithOptions(),
-                      decoration: const InputDecoration(
-                        labelText: "${labelTextforWeightEntry}",
-                        hintText: "65",
-                        icon: Icon(Icons.accessibility),
-                      ),
-                    ),
-                    const Padding(padding: EdgeInsets.all(15.0)),
-                    ElevatedButton(
-                      onPressed: calculateBMI,
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.${elevatedButtonColor},
-                          onPrimary: Colors.${elevatedButtonTextColor},
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      child: const Text("${elevatedButtonText}"),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.all(6.0),
-                ),
-                Text(
-                  "BMI: $bmi",
-                  style: const TextStyle(
-                    color: Colors.${calculatedBMIresultColor},
-                    fontWeight: FontWeight.w600,
-                    fontSize: 25.0,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(6.0),
-                ),
-                Text(
-                  "Inference from your BMI-:" "\\n$bmiResult",
-                  style: const TextStyle(
-                    color: Colors.${inferenceBMIresultColor},
-                    height: 2.0,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20.0,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}`
-}
-
-function DriverFx(projectName, appBarText) {
-    return `void main() {
-  runApp(MaterialApp(
-      title: "${appBarText}",
-      home: ${projectName.replaceAll(' ', '')}(),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light()));
-}`
-
-}
-
-
+import { useNavigate } from 'react-router-dom';	
 
 
 
 function BMIForm() {
-	let generatedCode = "";
-	// generatedCode +=  AppStart(values.projectName, values.appBarText, values.AppBarBackgroundColor, values.InputAreaBgColor, values.labelTextforHeightEntry, values.labelTextforWeightEntry, values.elevatedButtonColor, values.elevatedButtonText, values.elevatedButtonTextColor, values.calculatedBMIresultColor, values.inferenceBMIresultColor)
-	// generatedCode += DriverFx(values.projectName, values.appBarText)
 
-console.log(generatedCode)
+    const [getCode, setGenCode] = useState("");
+	let navigate = useNavigate();
+
+	function AppStart(projectName, appBarText, AppBarBackgroundColor, InputAreaBgColor, labelTextforHeightEntry, labelTextforWeightEntry, elevatedButtonColor, elevatedButtonText, elevatedButtonTextColor, calculatedBMIresultColor, inferenceBMIresultColor) {
+
+		return `
+	import 'package:flutter/material.dart';
+	class ${projectName.replaceAll(' ', '')} extends StatefulWidget {
+	  @override
+	  State<StatefulWidget> createState() {
+		return ${projectName.replaceAll(' ', '')}State();
+	  }
+	}
+	
+	class ${projectName.replaceAll(' ', '')}State extends State<${projectName.replaceAll(' ', '')}> {
+	  final TextEditingController weightController = TextEditingController();
+	  final TextEditingController heightController = TextEditingController();
+	  double bmi = 0;
+	  String bmiResult = "";
+	
+	  void calculateBMI() {
+		setState(() {
+		  double weight = double.parse(weightController.text);
+		  double height = double.parse(heightController.text);
+		  if ((weightController.text.isNotEmpty || weight > 0) &&
+			  (heightController.text.isNotEmpty || height > 0)) {
+			bmi = ((weight / (height * height)) * 10000.0);
+		  } else {
+			bmi = 0.0;
+		  }
+		  if (bmi < 18.5) {
+			bmiResult = "You are underweight";
+		  } else if (bmi >= 18.5 && bmi < 25.0) {
+			bmiResult = "Normal weight";
+		  } else if (bmi >= 25.0 && bmi < 30.0) {
+			bmiResult = "Overweight";
+		  } else {
+			bmiResult = "Obese";
+		  }
+		});
+	  }
+	
+	  @override
+	  Widget build(BuildContext context) {
+		return Scaffold(
+		  appBar: AppBar(
+			title: const Text("${appBarText}"),
+			centerTitle: true,
+			backgroundColor: Colors.${AppBarBackgroundColor},
+		  ),
+		  body: Container(
+			alignment: Alignment.center,
+			child: ListView(
+			  padding: const EdgeInsets.all(3.0),
+			  children: <Widget>[
+				Image.network(
+				  'https://cdn-icons-png.flaticon.com/512/3373/3373123.png',
+				  height: 75.0,
+				  width: 75.0,
+				),
+				const SizedBox(
+				  height: 10,
+				),
+				
+				Card(
+				  color: Colors.${InputAreaBgColor},
+				  child: Padding(
+					padding: const EdgeInsets.all(13.0),
+					child: Column(
+					  crossAxisAlignment: CrossAxisAlignment.center,
+					  children: <Widget>[
+						TextField(
+						  controller: heightController,
+						  keyboardType: TextInputType.number,
+						  decoration: const InputDecoration(
+							labelText: "${labelTextforHeightEntry}",
+							hintText: "172",
+							icon: Icon(Icons.account_box),
+						  ),
+						),
+						TextField(
+						  controller: weightController,
+						  keyboardType: const TextInputType.numberWithOptions(),
+						  decoration: const InputDecoration(
+							labelText: "${labelTextforWeightEntry}",
+							hintText: "65",
+							icon: Icon(Icons.accessibility),
+						  ),
+						),
+						const Padding(padding: EdgeInsets.all(15.0)),
+						ElevatedButton(
+						  onPressed: calculateBMI,
+						  style: ElevatedButton.styleFrom(
+							  primary: Colors.${elevatedButtonColor},
+							  onPrimary: Colors.${elevatedButtonTextColor},
+							  textStyle: const TextStyle(
+								fontSize: 20,
+								fontWeight: FontWeight.bold,
+							  )),
+						  child: const Text("${elevatedButtonText}"),
+						),
+					  ],
+					),
+				  ),
+				),
+				Column(
+				  mainAxisAlignment: MainAxisAlignment.center,
+				  children: <Widget>[
+					const Padding(
+					  padding: EdgeInsets.all(6.0),
+					),
+					Text(
+					  "BMI: $bmi",
+					  style: const TextStyle(
+						color: Colors.${calculatedBMIresultColor},
+						fontWeight: FontWeight.w600,
+						fontSize: 25.0,
+					  ),
+					),
+					const Padding(
+					  padding: EdgeInsets.all(6.0),
+					),
+					Text(
+					  "Inference from your BMI-:" "\\n$bmiResult",
+					  style: const TextStyle(
+						color: Colors.${inferenceBMIresultColor},
+						height: 2.0,
+						fontWeight: FontWeight.w600,
+						fontSize: 20.0,
+					  ),
+					),
+				  ],
+				),
+			  ],
+			),
+		  ),
+		);
+	  }
+	}`
+	}
+	
+	function DriverFx(projectName, appBarText) {
+		return `void main() {
+	  runApp(MaterialApp(
+		  title: "${appBarText}",
+		  home: ${projectName.replaceAll(' ', '')}(),
+		  debugShowCheckedModeBanner: false,
+		  theme: ThemeData.light()));
+	}`
+	
+	}
+	
+
+	let generatedCode = ""
+
 
 	const [values, setValues] = useState({
 		projectName: "",
@@ -179,6 +180,7 @@ console.log(generatedCode)
 		  setValues((oldValues) => ({ ...oldValues, [name]: value }));
 		};
 	  };
+	
 
 	  const clearFormData = async () => {
 		setValues({
@@ -196,15 +198,29 @@ console.log(generatedCode)
 		});
 	  };
 
+	  const downloadTxtFile = (value, fileName) => {
+        const element = document.createElement("a");
+        const file = new Blob([value], {
+            type: "text/plain"
+        });
+        element.href = URL.createObjectURL(file);
+        element.download = `${fileName}.txt`;
+        document.body.appendChild(element);
+        element.click();
+    };
+
+
+	  const onSubmit = () => {
+
+		generatedCode += AppStart(values.projectName, values.appBarText, values.AppBarBackgroundColor, values.InputAreaBgColor, values.labelTextforHeightEntry, values.labelTextforWeightEntry, values.elevatedButtonColor, values.elevatedButtonText, values.elevatedButtonTextColor, values.calculatedBMIresultColor, values.inferenceBMIresultColor)
+		generatedCode += DriverFx(values.projectName, values.appBarText)
+        console.log(generatedCode)
+
+        setGenCode(generatedCode)
+        downloadTxtFile(generatedCode, values.projectName);
 		
-			const onSubmit = () =>{
-				generatedCode += AppStart(values.projectName, values.appBarText, values.AppBarBackgroundColor, values.InputAreaBgColor, values.labelTextforHeightEntry, values.labelTextforWeightEntry, values.elevatedButtonColor, values.elevatedButtonText, values.elevatedButtonTextColor, values.calculatedBMIresultColor, values.inferenceBMIresultColor);
-				generatedCode += DriverFx(values.projectName, values.appBarText);
-			}
-	
-	  
-	
-		// console.log(generatedCode);
+		navigate("/output",{state:generatedCode});
+    }
 
 	  const onReset = async (e) => {
 		e.preventDefault();

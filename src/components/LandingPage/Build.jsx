@@ -34,7 +34,8 @@ const Support = () => {
 						<div className='p-8'>
 							<div className='w-16 p-4 bg-indigo-600 text-white rounded-lg mt-[-4rem]'><DiAndroid /></div>
 							<h3 className='font-bold text-2xl my-6'>Android</h3>
-							<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
+							<p className='text-gray-600 text-xl'>Android holds world largest market share in mobile industry!!
+Why not Build app for such kind Userbase :)</p>
 						</div>
 						<div className='bg-slate-100 pl-8 py-4'>
 							<p><a className='flex items-center text-indigo-600' onClick={() => { Android() }}>Build Android Application</a></p>
@@ -44,7 +45,8 @@ const Support = () => {
 						<div className='p-8'>
 							<div className='w-16 p-4 bg-indigo-600 text-white rounded-lg mt-[-4rem]'><GoBrowser /></div>
 							<h3 className='font-bold text-2xl my-6'>Web</h3>
-							<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
+							<p className='text-gray-600 text-xl'>Want to build Application which can be used by all kind of userbase!!
+Let's build Web Application</p>
 						</div>
 						<div className='bg-slate-100 pl-8 py-4'>
 							<p><a className='flex items-center text-indigo-600' onClick={() => { Web() }}>Build Web Application</a></p>
@@ -54,7 +56,8 @@ const Support = () => {
 						<div className='p-8'>
 							<div className='w-16 p-4 bg-indigo-600 text-white rounded-lg mt-[-4rem]'><SiIos /></div>
 							<h3 className='font-bold text-2xl my-6'>IOS</h3>
-							<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
+							<p className='text-gray-600 text-xl'>Apple is known for creativity!! So are you Creative?
+Why not create Creative and build modern UI app ;)</p>
 						</div>
 						<div className='bg-slate-100 pl-8 py-4'>
 							<p><a className='flex items-center text-indigo-600' onClick={() => { IOS() }}>Build IOS Application</a></p>

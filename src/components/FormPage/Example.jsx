@@ -5,6 +5,7 @@ import { MdQuiz } from 'react-icons/md';
 import { GiHealing } from 'react-icons/gi';
 import { SiBitcoinsv } from 'react-icons/si';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function Example() {
 	const location = useLocation();
@@ -23,30 +24,32 @@ function Example() {
 							<div className='p-8'>
 								<div className='w-16 p-4 bg-indigo-600 text-white rounded-lg mt-[-4rem]'><MdQuiz /></div>
 								<h3 className='font-bold text-2xl my-6'>Quiz App</h3>
-								<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
+								<p className='text-gray-600 text-xl'>Quiz a Wiz!! Let's Play Knowledge game!!</p>
 							</div>
 							<div className='bg-slate-100 py-4 flex justify-content-center'>
-								<Button className="w-[200px]" variant="success">Start Building</Button>
+								<Button className="w-[200px]" variant="success"><Link to="/form3" style={{color:"white"}}>Start Building</Link></Button>
 							</div>
 						</div>
 						<div className='bg-white rounded-xl shadow-2xl'>
 							<div className='p-8'>
 								<div className='w-16 p-4 bg-indigo-600 text-white rounded-lg mt-[-4rem]'><GiHealing /></div>
 								<h3 className='font-bold text-2xl my-6'>BMI</h3>
-								<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
+								<p className='text-gray-600 text-xl'>Health is Wealth !!
+Let's create BMI App</p>
 							</div>
 							<div className='bg-slate-100 py-4 flex justify-content-center'>
-								<Button className="w-[200px]" variant="success">Start Building</Button>
+								<Button className="w-[200px]" variant="success"><Link to="/form1" style={{color:"white"}}>Start Building</Link></Button>
 							</div>
 						</div>
 						<div className='bg-white rounded-xl shadow-2xl'>
 							<div className='p-8'>
 								<div className='w-16 p-4 bg-indigo-600 text-white rounded-lg mt-[-4rem]'><SiBitcoinsv /></div>
 								<h3 className='font-bold text-2xl my-6'>Bitcoin</h3>
-								<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
+								<p className='text-gray-600 text-xl'>Are you fascinated about Crypto??
+Let's Create Crypto-Convertor App</p>
 							</div>
 							<div className='bg-slate-100 py-4 flex justify-content-center'>
-								<Button className="w-[200px]" variant="success">Start Building</Button>
+								<Button className="w-[200px]" variant="success"><Link to="/form2" style={{color:"white"}}>Start Building</Link></Button>
 							</div>
 						</div>
 					</div>

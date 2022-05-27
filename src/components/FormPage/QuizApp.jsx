@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Container, Form, Modal} from "react-bootstrap";
-
+import { useNavigate } from 'react-router-dom';	
 
 function QuizAppForm() {
+	let navigate = useNavigate();
+
     let generatedCode = "";
 
     const [getCode, setGenCode] = useState("")
@@ -272,8 +274,12 @@ class _${projectName.replaceAll(' ', '')}State extends State<${projectName.repla
 
 
     const clearFormData = async () => {
-        setGenCode("")
-        setProjectName("")
+      setQuizAppFormTitle("")
+        setProjectName("");
+        setAppBarColor("");
+        setoptionBoxColor("");
+        setQuizAppFormBgColor("");
+        setGenCode("");
 
 
     };
@@ -295,6 +301,8 @@ class _${projectName.replaceAll(' ', '')}State extends State<${projectName.repla
         generatedCode += QuizDriverFx(AppBarColor, QuizAppFormTitle, QuizAppFormBgColor, projectName)
         setGenCode(generatedCode)
         downloadTxtFile(getCode,QuizAppFormTitle)
+		navigate("/output",{state:generatedCode});
+
 
     }
 
@@ -412,7 +420,7 @@ class _${projectName.replaceAll(' ', '')}State extends State<${projectName.repla
                             className="btn btn-primary"
                             id="but"
                             onClick={onSubmit}
-                            disabled={optionBoxColor === "" || AppBarColor === "" || QuizAppFormTitle === "" || QuizAppFormBgColor === "" || projectName === ""}
+                            disabled={!optionBoxColor || !AppBarColor|| !QuizAppFormTitle  || !QuizAppFormBgColor || !projectName }
                         >
                             Submit
                         </button>
@@ -421,7 +429,7 @@ class _${projectName.replaceAll(' ', '')}State extends State<${projectName.repla
                             className="btn btn-danger"
                             style={{marginLeft: "20px"}}
 
-                            disabled={optionBoxColor === "" || AppBarColor === "" || QuizAppFormTitle === "" || QuizAppFormBgColor === "" || projectName === ""}
+                            disabled={!optionBoxColor && !AppBarColor && !QuizAppFormTitle && !QuizAppFormBgColor && !projectName}
 
                         >
                             Reset
