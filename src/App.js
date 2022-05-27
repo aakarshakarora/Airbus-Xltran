@@ -6,7 +6,8 @@ import Dashboard from "./components/LandingPage/DashBoard";
 import Example from "./components/FormPage/Example";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TempDashboard from "./tempDashboard";
-import F1 from "./components/FormPage/F1";
+import BMI from "./components/FormPage/BMIForm";
+import Output from "./components/Codepage/CodePage";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route exact path="/reset" element={<Reset />} />
           <Route exact path="/dashboard" element={<TempDashboard />} />
           <Route exact path="/example" element={<Example />} />
-          <Route exact path="/form1" element={<F1 />} />
+          <Route exact path="/form1" element={<BMI />} />
+          <Route exact path="/output" element={<Output />} />
         </Routes>
       </Router>
     </div>
