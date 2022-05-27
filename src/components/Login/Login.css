@@ -1,38 +1,52 @@
 .login {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .login__container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  background-color: #dcdcdc;
-  padding: 30px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	background-color: #fafafa;
+	padding: 30px;
+	border: 2px solid grey;
+	border-radius: 10px;
+
 }
 
 .login__textBox {
-  padding: 10px;
-  font-size: 18px;
-  margin-bottom: 10px;
+	padding: 10px;
+	font-size: 16px;
+	margin-bottom: 10px;
 }
 
 .login__btn {
-  padding: 10px;
-  font-size: 18px;
-  margin-bottom: 10px;
-  border: none;
-  color: white;
-  background-color: black;
+	padding: 10px;
+	font-size: 16px;
+	margin-bottom: 10px;
+	border: none;
+	border-radius: 10px;
+	color: white;
+	font-weight: 700;
+	background-color: #45bd6d;
 }
 
 .login__google {
-  background-color: #4285f4;
+	background-color: #4285f4;
 }
 
 .login div {
-  margin-top: 7px;
+	margin-top: 7px;
 }
+/* .heads{
+	font-style: italic;
+	font-family: cursive;
+	font-size: 28px;
+	font-weight: 800;
+	color: #5c0af5;
+	display: flex;
+	justify-content: center;
+} */

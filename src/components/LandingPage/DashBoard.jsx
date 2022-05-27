@@ -6,15 +6,15 @@ import Footer from "./Footer";
 
 
 function Dashboard() {
-    return (
-        <>
-            <NavBar/>
-            <Hero/>
-            <About/>
-            <Build/>
-            <Footer/>
-        </>
-    );
+	return (
+		<>
+			<NavBar />
+			<Hero />
+			<About />
+			<Build />
+			<Footer />
+		</>
+	);
 }
 
 export default Dashboard;
