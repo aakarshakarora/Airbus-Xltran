@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TempDashboard from "./tempDashboard";
 import BMI from "./components/FormPage/BMIForm";
 import Output from "./components/Codepage/CodePage";
+import BitCoinForm from "./components/FormPage/BitCoinForm";
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
           <Route exact path="/dashboard" element={<TempDashboard />} />
           <Route exact path="/example" element={<Example />} />
           <Route exact path="/form1" element={<BMI />} />
+          <Route exact path="/form2" element={<BitCoinForm />} />
           <Route exact path="/output" element={<Output />} />
+
         </Routes>
       </Router>
     </div>
