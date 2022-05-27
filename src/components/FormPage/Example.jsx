@@ -1,13 +1,14 @@
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { useLocation } from 'react-router-dom';
-import { MdLocalGroceryStore } from 'react-icons/md';
+import { MdQuiz } from 'react-icons/md';
 import { GiHealing } from 'react-icons/gi';
 import { SiBitcoinsv } from 'react-icons/si';
 import { Button } from 'react-bootstrap';
 
 function Example() {
 	const location = useLocation();
+	window.scrollTo(0, 0)
 	return (
 		<>
 			<NavBar />
@@ -20,8 +21,8 @@ function Example() {
 					<div className='grid grid-cols-1 lg:grid-cols-3 relative gap-x-8 gap-y-16 px-4 pt-2 sm:pt-20 text-black'>
 						<div className='bg-white rounded-xl shadow-2xl'>
 							<div className='p-8'>
-								<div className='w-16 p-4 bg-indigo-600 text-white rounded-lg mt-[-4rem]'><MdLocalGroceryStore /></div>
-								<h3 className='font-bold text-2xl my-6'>Groceries</h3>
+								<div className='w-16 p-4 bg-indigo-600 text-white rounded-lg mt-[-4rem]'><MdQuiz /></div>
+								<h3 className='font-bold text-2xl my-6'>Quiz App</h3>
 								<p className='text-gray-600 text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi provident iure placeat blanditiis ea sint earum hic iste quibusdam exercitationem.</p>
 							</div>
 							<div className='bg-slate-100 py-4 flex justify-content-center'>
@@ -51,7 +52,7 @@ function Example() {
 					</div>
 				</div>
 			</div>
-			<Footer/>
+			<Footer />
 		</>
 	);
 }
