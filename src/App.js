@@ -8,6 +8,7 @@ import TempDashboard from "./tempDashboard";
 import BMI from "./components/FormPage/BMIForm";
 import Output from "./components/Codepage/CodePage";
 import BitCoinForm from "./components/FormPage/BitCoinForm";
+import QuizAppForm from "./components/FormPage/QuizApp";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/example" element={<Example />} />
           <Route exact path="/form1" element={<BMI />} />
           <Route exact path="/form2" element={<BitCoinForm />} />
+         < Route exact path="/form3" element={<QuizAppForm />} />
           <Route exact path="/output" element={<Output />} />
 
         </Routes>
