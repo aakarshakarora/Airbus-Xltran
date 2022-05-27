@@ -3,7 +3,7 @@ import React from 'react';
 import { DiAndroid } from 'react-icons/di';
 import { SiIos } from 'react-icons/si';
 import { GoBrowser } from 'react-icons/go';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import supportImg from '../assets/build-bg.png'
 const Support = () => {
