@@ -15,6 +15,8 @@ import {
     collection,
     where,
     addDoc,
+    setDoc,
+    doc,
 } from "firebase/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -39,14 +41,18 @@ const signInWithGoogle = async () => {
         const res = await signInWithPopup(auth, googleProvider);
         const user = res.user;
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        console.log(user.uid)
         const docs = await getDocs(q);
         if (docs.docs.length === 0) {
-            await addDoc(collection(db, "users"), {
+
+            await setDoc(doc(db, "users", user.uid), {
                 uid: user.uid,
                 name: user.displayName,
                 authProvider: "google",
                 email: user.email,
+                projects: []
             });
+
         }
     } catch (err) {
         console.error(err);
@@ -67,11 +73,12 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
-        await addDoc(collection(db, "users"), {
+        await setDoc(doc(db, "users", user.uid), {
             uid: user.uid,
             name,
-            authProvider: "local",
+            authProvider: "emailId",
             email,
+            projects: []
         });
     } catch (err) {
         console.error(err);
