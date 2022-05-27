@@ -4,8 +4,13 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import NavBar from "./components/LandingPage/NavBar";
+import Hero from "./components/LandingPage/Hero";
+import About from "./components/LandingPage/About";
+import Build from "./components/LandingPage/Build";
+import Footer from "./components/LandingPage/Footer";
 
-function Dashboard() {
+function TempDashboard() {
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
@@ -31,18 +36,14 @@ function Dashboard() {
   }, [user, loading]);
 
   return (
-    <div className="dashboard">
-      <div className="dashboard__container">
-        Logged in as
-        <div>{name}</div>
-        <div>{user?.email}</div>
-        <div>{user?.uid}</div>
-        <button className="dashboard__btn" onClick={logout}>
-          Logout
-        </button>
-      </div>
-    </div>
+      <>
+        <NavBar />
+        <Hero />
+        <About />
+        <Build />
+        <Footer />
+      </>
   );
 }
 
-export default Dashboard;
+export default TempDashboard;
