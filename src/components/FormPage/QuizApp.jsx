@@ -1,22 +1,24 @@
-import React, {useEffect, useState} from "react";
-import {Container, Form, Modal} from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';	
+import React, { useEffect, useState } from "react";
+import { Container, Form, Modal } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+import QuizAppMobImg from '../assets/QuizApp.jpeg'
+import QuizAppWebImg from '../assets/QuizAppWeb.png'
 
 function QuizAppForm() {
-	let navigate = useNavigate();
+  let navigate = useNavigate();
 
-    let generatedCode = "";
+  let generatedCode = "";
 
-    const [getCode, setGenCode] = useState("")
-    const [projectName, setProjectName] = useState("")
-    const [QuizAppFormTitle, setQuizAppFormTitle] = useState("")
-    const [AppBarColor, setAppBarColor] = useState("")
-    const [optionBoxColor, setoptionBoxColor] = useState("")
-    const [QuizAppFormBgColor, setQuizAppFormBgColor] = useState("")
+  const [getCode, setGenCode] = useState("")
+  const [projectName, setProjectName] = useState("")
+  const [QuizAppFormTitle, setQuizAppFormTitle] = useState("")
+  const [AppBarColor, setAppBarColor] = useState("")
+  const [optionBoxColor, setoptionBoxColor] = useState("")
+  const [QuizAppFormBgColor, setQuizAppFormBgColor] = useState("")
 
-    function OptionScreen(optionBoxColor) {
+  function OptionScreen(optionBoxColor) {
 
-        return `import 'package:flutter/material.dart';
+    return `import 'package:flutter/material.dart';
 
 class Question extends StatelessWidget {
   final String questionText;
@@ -65,11 +67,11 @@ class Answer extends StatelessWidget {
 }
 `
 
-    }
+  }
 
-    function QuestionAnswer() {
+  function QuestionAnswer() {
 
-        return `class Quiz extends StatelessWidget {
+    return `class Quiz extends StatelessWidget {
   final List<Map<String, Object>> questions;
   final int questionIndex;
   final Function answerQuestion;
@@ -145,12 +147,12 @@ class Result extends StatelessWidget {
 }
 `
 
-    }
+  }
 
 
-    function QuizDriverFx(AppBarColor, QuizAppFormTitle, QuizAppFormBgColor, projectName) {
+  function QuizDriverFx(AppBarColor, QuizAppFormTitle, QuizAppFormBgColor, projectName) {
 
-        return `void main() => runApp(${projectName.replaceAll(' ', '')}());
+    return `void main() => runApp(${projectName.replaceAll(' ', '')}());
 
 class ${projectName.replaceAll(' ', '')} extends StatefulWidget {
   @override
@@ -270,178 +272,195 @@ class _${projectName.replaceAll(' ', '')}State extends State<${projectName.repla
 }
 `
 
+  }
+
+
+  const clearFormData = async () => {
+    setQuizAppFormTitle("")
+    setProjectName("");
+    setAppBarColor("");
+    setoptionBoxColor("");
+    setQuizAppFormBgColor("");
+    setGenCode("");
+
+
+  };
+  const downloadTxtFile = (value, fileName) => {
+    const element = document.createElement("a");
+    const file = new Blob([value], {
+      type: "text/plain"
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = `${fileName}.txt`;
+    document.body.appendChild(element);
+    element.click();
+  };
+
+
+  const onSubmit = () => {
+    generatedCode += OptionScreen(optionBoxColor)
+    generatedCode += QuestionAnswer()
+    generatedCode += QuizDriverFx(AppBarColor, QuizAppFormTitle, QuizAppFormBgColor, projectName)
+    setGenCode(generatedCode)
+    downloadTxtFile(generatedCode, QuizAppFormTitle)
+    navigate("/output", { state: generatedCode });
+
+
+  }
+
+
+  const onReset = async (e) => {
+    e.preventDefault();
+    try {
+      await clearFormData();
+    } catch (e) {
+      alert(`Failed ${e.message}`);
     }
+  };
+
+  return (
+    <Container id="example" className='flex'>
+      <Modal.Dialog className='min-w-[350px]'>
+        <Modal.Header closeButton>
+          <Modal.Title>Demo Screenshot for Mobile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img className='max-h-[700px]' src={QuizAppMobImg} alt="QuizApp"></img>
+        </Modal.Body>
+      </Modal.Dialog>
+      <Modal.Dialog className='min-w-[350px]'>
+        <Modal.Header closeButton>
+          <Modal.Title>Quiz App</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+
+          <Form onReset={onReset} onSubmit={onSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Project Name</Form.Label>
+              <Form.Control type="text" placeholder="Add Project Name"
+                value={projectName}
+                onChange={(event) => {
+                  setProjectName(event.target.value)
+                }} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Enter Quiz App Title</Form.Label>
+              <Form.Control type="text" placeholder="App Bar Name"
+                value={QuizAppFormTitle}
+                onChange={(event) => {
+                  setQuizAppFormTitle(event.target.value)
+                }} />
+            </Form.Group>
 
 
-    const clearFormData = async () => {
-      setQuizAppFormTitle("")
-        setProjectName("");
-        setAppBarColor("");
-        setoptionBoxColor("");
-        setQuizAppFormBgColor("");
-        setGenCode("");
+            <Form.Group className="mb-3">
+              <Form.Label>App Bar Color</Form.Label>
+              <br></br>
+              <Form.Select aria-label="Default select example" style={DropdownStyle}
+                onChange={(event) => {
+                  setAppBarColor(event.target.value)
+                }}
+                value={AppBarColor}
+                placeholder="set Colour"
+                required>
+                <option defaultValue="black">black</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="green">green</option>
+                <option value="grey">grey</option>
+                <option value="lime">lime</option>
+                <option value="orange">orange</option>
+                <option value="pink">pink</option>
+                <option value="red">red</option>
+                <option value="yellow">yellow</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Quiz App Background Color</Form.Label>
+              <br></br>
+              <Form.Select aria-label="Default select example" style={DropdownStyle}
+                onChange={(event) => {
+                  setQuizAppFormBgColor(event.target.value)
+                }}
+                value={QuizAppFormBgColor}
+                placeholder="set Colour"
+                required>
+                <option defaultValue="black">black</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="green">green</option>
+                <option value="grey">grey</option>
+                <option value="lime">lime</option>
+                <option value="orange">orange</option>
+                <option value="pink">pink</option>
+                <option value="red">red</option>
+                <option value="yellow">yellow</option>
+              </Form.Select>
+            </Form.Group>
 
 
-    };
-    const downloadTxtFile = (value, fileName) => {
-        const element = document.createElement("a");
-        const file = new Blob([value], {
-            type: "text/plain"
-        });
-        element.href = URL.createObjectURL(file);
-        element.download = `${fileName}.txt`;
-        document.body.appendChild(element);
-        element.click();
-    };
+            <Form.Group className="mb-3">
+              <Form.Label>Option Box Color</Form.Label>
+              <br></br>
+              <Form.Select aria-label="Default select example" style={DropdownStyle}
+                onChange={(event) => {
+                  setoptionBoxColor(event.target.value)
+                }}
+                value={optionBoxColor}
+                placeholder="set Colour"
+                required>
+                <option defaultValue="black">black</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="green">green</option>
+                <option value="grey">grey</option>
+                <option value="lime">lime</option>
+                <option value="orange">orange</option>
+                <option value="pink">pink</option>
+                <option value="red">red</option>
+                <option value="yellow">yellow</option>
+              </Form.Select>
+            </Form.Group>
 
 
-    const onSubmit = () => {
-        generatedCode += OptionScreen(optionBoxColor)
-        generatedCode += QuestionAnswer()
-        generatedCode += QuizDriverFx(AppBarColor, QuizAppFormTitle, QuizAppFormBgColor, projectName)
-        setGenCode(generatedCode)
-        downloadTxtFile(generatedCode,QuizAppFormTitle)
-		navigate("/output",{state:generatedCode});
+            <button
+              type="submit"
+              className="btn btn-primary"
+              id="but"
+              onClick={onSubmit}
+              disabled={!optionBoxColor || !AppBarColor || !QuizAppFormTitle || !QuizAppFormBgColor || !projectName}
+            >
+              Submit
+            </button>
+            <button
+              type="reset"
+              className="btn btn-danger"
+              style={{ marginLeft: "20px" }}
 
+              disabled={!optionBoxColor && !AppBarColor && !QuizAppFormTitle && !QuizAppFormBgColor && !projectName}
 
-    }
-
-
-    const onReset = async (e) => {
-        e.preventDefault();
-        try {
-            await clearFormData();
-        } catch (e) {
-            alert(`Failed ${e.message}`);
-        }
-    };
-
-    return (
-        <Container className='max-w-[1240px] mx-auto'>
-            <Modal.Dialog>
-                <Modal.Header closeButton>
-                    <Modal.Title>Quiz App</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <Form onReset={onReset} onSubmit={onSubmit}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Project Name</Form.Label>
-                            <Form.Control type="text" placeholder="Add Project Name"
-                                          value={projectName}
-                                          onChange={(event) => {
-                                              setProjectName(event.target.value)
-                                          }}/>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Enter Quiz App Title</Form.Label>
-                            <Form.Control type="text" placeholder="App Bar Name"
-                                          value={QuizAppFormTitle}
-                                          onChange={(event) => {
-                                              setQuizAppFormTitle(event.target.value)
-                                          }}/>
-                        </Form.Group>
-
-
-                        <Form.Group className="mb-3">
-                            <Form.Label>App Bar Color</Form.Label>
-                            <br></br>
-                            <Form.Select aria-label="Default select example" style={DropdownStyle}
-                                         onChange={(event) => {
-                                             setAppBarColor(event.target.value)
-                                         }}
-                                         value={AppBarColor}
-                                         placeholder="set Colour"
-                                         required>
-                                <option defaultValue="black">black</option>
-                                <option value="blue">blue</option>
-                                <option value="brown">brown</option>
-                                <option value="green">green</option>
-                                <option value="grey">grey</option>
-                                <option value="lime">lime</option>
-                                <option value="orange">orange</option>
-                                <option value="pink">pink</option>
-                                <option value="red">red</option>
-                                <option value="yellow">yellow</option>
-                            </Form.Select>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label>Quiz App Background Color</Form.Label>
-                            <br></br>
-                            <Form.Select aria-label="Default select example" style={DropdownStyle}
-                                         onChange={(event) => {
-                                             setQuizAppFormBgColor(event.target.value)
-                                         }}
-                                         value={QuizAppFormBgColor}
-                                         placeholder="set Colour"
-                                         required>
-                                <option defaultValue="black">black</option>
-                                <option value="blue">blue</option>
-                                <option value="brown">brown</option>
-                                <option value="green">green</option>
-                                <option value="grey">grey</option>
-                                <option value="lime">lime</option>
-                                <option value="orange">orange</option>
-                                <option value="pink">pink</option>
-                                <option value="red">red</option>
-                                <option value="yellow">yellow</option>
-                            </Form.Select>
-                        </Form.Group>
-
-
-                        <Form.Group className="mb-3">
-                            <Form.Label>Option Box Color</Form.Label>
-                            <br></br>
-                            <Form.Select aria-label="Default select example" style={DropdownStyle}
-                                         onChange={(event) => {
-                                             setoptionBoxColor(event.target.value)
-                                         }}
-                                         value={optionBoxColor}
-                                         placeholder="set Colour"
-                                         required>
-                                <option defaultValue="black">black</option>
-                                <option value="blue">blue</option>
-                                <option value="brown">brown</option>
-                                <option value="green">green</option>
-                                <option value="grey">grey</option>
-                                <option value="lime">lime</option>
-                                <option value="orange">orange</option>
-                                <option value="pink">pink</option>
-                                <option value="red">red</option>
-                                <option value="yellow">yellow</option>
-                            </Form.Select>
-                        </Form.Group>
-
-
-                        <button
-                            type="submit"
-                            className="btn btn-primary"
-                            id="but"
-                            onClick={onSubmit}
-                            disabled={!optionBoxColor || !AppBarColor|| !QuizAppFormTitle  || !QuizAppFormBgColor || !projectName }
-                        >
-                            Submit
-                        </button>
-                        <button
-                            type="reset"
-                            className="btn btn-danger"
-                            style={{marginLeft: "20px"}}
-
-                            disabled={!optionBoxColor && !AppBarColor && !QuizAppFormTitle && !QuizAppFormBgColor && !projectName}
-
-                        >
-                            Reset
-                        </button>
-                    </Form>
-                </Modal.Body>
-            </Modal.Dialog>
-        </Container>
-    );
+            >
+              Reset
+            </button>
+          </Form>
+        </Modal.Body>
+      </Modal.Dialog>
+      <Modal.Dialog className='min-w-[350px]'>
+        <Modal.Header closeButton>
+          <Modal.Title>Demo Screenshot for Web</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img src={QuizAppWebImg} alt="QuizApp"></img>
+        </Modal.Body>
+      </Modal.Dialog>
+    </Container>
+  );
 }
 
 const DropdownStyle = {
-    border: "2px solid grey", width: "25%", borderRadius: "10px"
+  border: "2px solid grey", width: "25%", borderRadius: "10px"
 }
 export default QuizAppForm;

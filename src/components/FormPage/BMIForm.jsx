@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Container, Form, Modal } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';	
-
-
+import { useNavigate } from 'react-router-dom';
+import BMIMobImg from '../assets/BMI.jpeg'
+import BMIWebImg from '../assets/BMIWeb.png'
 
 function BMIForm() {
 
-    const [getCode, setGenCode] = useState("");
+	const [getCode, setGenCode] = useState("");
 	let navigate = useNavigate();
 
 	function AppStart(projectName, appBarText, AppBarBackgroundColor, InputAreaBgColor, labelTextforHeightEntry, labelTextforWeightEntry, elevatedButtonColor, elevatedButtonText, elevatedButtonTextColor, calculatedBMIresultColor, inferenceBMIresultColor) {
@@ -146,7 +146,7 @@ function BMIForm() {
 	  }
 	}`
 	}
-	
+
 	function DriverFx(projectName, appBarText) {
 		return `void main() {
 	  runApp(MaterialApp(
@@ -155,9 +155,9 @@ function BMIForm() {
 		  debugShowCheckedModeBanner: false,
 		  theme: ThemeData.light()));
 	}`
-	
+
 	}
-	
+
 
 	let generatedCode = ""
 
@@ -167,73 +167,81 @@ function BMIForm() {
 		appBarText: "",
 		AppBarBackgroundColor: "black",
 		InputAreaBgColor: "black",
-		labelTextforHeightEntry:"",
-		labelTextforWeightEntry:"",
-		elevatedButtonColor:"black",
-		elevatedButtonText:"",
-		elevatedButtonTextColor:"black",
-		calculatedBMIresultColor:"black",
-		inferenceBMIresultColor:"black",
-	  });
-	  const set = (name) => {
+		labelTextforHeightEntry: "",
+		labelTextforWeightEntry: "",
+		elevatedButtonColor: "black",
+		elevatedButtonText: "",
+		elevatedButtonTextColor: "black",
+		calculatedBMIresultColor: "black",
+		inferenceBMIresultColor: "black",
+	});
+	const set = (name) => {
 		return ({ target: { value } }) => {
-		  setValues((oldValues) => ({ ...oldValues, [name]: value }));
+			setValues((oldValues) => ({ ...oldValues, [name]: value }));
 		};
-	  };
-	
+	};
 
-	  const clearFormData = async () => {
+
+	const clearFormData = async () => {
 		setValues({
 			projectName: "",
 			appBarText: "",
 			AppBarBackgroundColor: "",
 			InputAreaBgColor: "",
-			labelTextforHeightEntry:"",
-			labelTextforWeightEntry:"",
-			elevatedButtonColor:"",
-			elevatedButtonText:"",
-			elevatedButtonTextColor:"",
-			calculatedBMIresultColor:"",
-			inferenceBMIresultColor:"",
+			labelTextforHeightEntry: "",
+			labelTextforWeightEntry: "",
+			elevatedButtonColor: "",
+			elevatedButtonText: "",
+			elevatedButtonTextColor: "",
+			calculatedBMIresultColor: "",
+			inferenceBMIresultColor: "",
 		});
-	  };
+	};
 
-	  const downloadTxtFile = (value, fileName) => {
-        const element = document.createElement("a");
-        const file = new Blob([value], {
-            type: "text/plain"
-        });
-        element.href = URL.createObjectURL(file);
-        element.download = `${fileName}.txt`;
-        document.body.appendChild(element);
-        element.click();
-    };
+	const downloadTxtFile = (value, fileName) => {
+		const element = document.createElement("a");
+		const file = new Blob([value], {
+			type: "text/plain"
+		});
+		element.href = URL.createObjectURL(file);
+		element.download = `${fileName}.txt`;
+		document.body.appendChild(element);
+		element.click();
+	};
 
 
-	  const onSubmit = () => {
+	const onSubmit = () => {
 
 		generatedCode += AppStart(values.projectName, values.appBarText, values.AppBarBackgroundColor, values.InputAreaBgColor, values.labelTextforHeightEntry, values.labelTextforWeightEntry, values.elevatedButtonColor, values.elevatedButtonText, values.elevatedButtonTextColor, values.calculatedBMIresultColor, values.inferenceBMIresultColor)
 		generatedCode += DriverFx(values.projectName, values.appBarText)
-        console.log(generatedCode)
+		console.log(generatedCode)
 
-        setGenCode(generatedCode)
-        downloadTxtFile(generatedCode, values.projectName);
-		
-		navigate("/output",{state:generatedCode});
-    }
+		setGenCode(generatedCode)
+		downloadTxtFile(generatedCode, values.projectName);
 
-	  const onReset = async (e) => {
+		navigate("/output", { state: generatedCode });
+	}
+
+	const onReset = async (e) => {
 		e.preventDefault();
 		try {
-		  await clearFormData();
+			await clearFormData();
 		} catch (e) {
-		  alert(`Failed ${e.message}`);
+			alert(`Failed ${e.message}`);
 		}
-	  };
-	
+	};
+
 	return (
-		<Container className='max-w-[1240px] mx-auto'>
-			<Modal.Dialog>
+		<Container id="example" className='flex'>
+			<Modal.Dialog className='min-w-[350px]'>
+				<Modal.Header closeButton>
+					<Modal.Title>Demo Screenshot for Mobile</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<img className='max-h-[700px]' src={BMIMobImg} alt="BMIMobImg"></img>
+				</Modal.Body>
+			</Modal.Dialog>
+			<Modal.Dialog className='min-w-[350px]'>
 				<Modal.Header closeButton>
 					<Modal.Title>BMI Calculator</Modal.Title>
 				</Modal.Header>
@@ -242,42 +250,42 @@ function BMIForm() {
 					<Form onReset={onReset} onSubmit={onSubmit}>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label>Project Name</Form.Label>
-							<Form.Control type="text"  placeholder="Add Project Name"
-                value={values.projectName}
-                onChange={set("projectName")}/>
+							<Form.Control type="text" placeholder="Add Project Name"
+								value={values.projectName}
+								onChange={set("projectName")} />
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label>Project Title</Form.Label>
 							<Form.Control type="text" placeholder="Add Project Title"
-                value={values.appBarText}
-                onChange={set("appBarText")}/>
+								value={values.appBarText}
+								onChange={set("appBarText")} />
 						</Form.Group>
 						<Form.Group className="mb-3">
 							<Form.Label>Label Text for Height Entry</Form.Label>
 							<Form.Control type="text" placeholder="Add Entry height"
-                value={values.labelTextforHeightEntry}
-                onChange={set("labelTextforHeightEntry")}/>
+								value={values.labelTextforHeightEntry}
+								onChange={set("labelTextforHeightEntry")} />
 						</Form.Group>
 						<Form.Group className="mb-3">
 							<Form.Label>Label Text for Weight Entry</Form.Label>
-							<Form.Control type="text"  placeholder="Add Entry Weight"
-                value={values.labelTextforWeightEntry}
-                onChange={set("labelTextforWeightEntry")}/>
+							<Form.Control type="text" placeholder="Add Entry Weight"
+								value={values.labelTextforWeightEntry}
+								onChange={set("labelTextforWeightEntry")} />
 						</Form.Group>
 						<Form.Group className="mb-3">
 							<Form.Label>Elevated Button Text</Form.Label>
 							<Form.Control type="text" placeholder="Add Button Text"
-                value={values.elevatedButtonText}
-                onChange={set("elevatedButtonText")} />
+								value={values.elevatedButtonText}
+								onChange={set("elevatedButtonText")} />
 						</Form.Group>
 						<Form.Group className="mb-3">
 							<Form.Label>Elevated Button Text Color</Form.Label>
 							<br></br>
 							<Form.Select aria-label="Default select example" style={DropdownStyle}
-							 onChange={set("elevatedButtonTextColor")}
-							 value={values.elevatedButtonTextColor}
-							 placeholder="set Colour"
-							 required>
+								onChange={set("elevatedButtonTextColor")}
+								value={values.elevatedButtonTextColor}
+								placeholder="set Colour"
+								required>
 								<option defaultValue="black">black</option>
 								<option value="blue">blue</option>
 								<option value="brown">brown</option>
@@ -294,10 +302,10 @@ function BMIForm() {
 							<Form.Label>Elevated Button Color</Form.Label>
 							<br></br>
 							<Form.Select aria-label="Default select example" style={DropdownStyle}
-							 onChange={set("elevatedButtonColor")}
-							 value={values.elevatedButtonColor}
-							 placeholder="set Colour"
-							 required>
+								onChange={set("elevatedButtonColor")}
+								value={values.elevatedButtonColor}
+								placeholder="set Colour"
+								required>
 								<option defaultValue="black">black</option>
 								<option value="blue">blue</option>
 								<option value="brown">brown</option>
@@ -310,14 +318,14 @@ function BMIForm() {
 								<option value="yellow">yellow</option>
 							</Form.Select>
 						</Form.Group>
-						<Form.Group className="mb-3">	
+						<Form.Group className="mb-3">
 							<Form.Label>Calculated BMI Result Color</Form.Label>
 							<br></br>
 							<Form.Select aria-label="Default select example" style={DropdownStyle}
-							 onChange={set("calculatedBMIresultColor")}
-							 value={values.calculatedBMIresultColor}
-							 placeholder="set Colour"
-							 required>
+								onChange={set("calculatedBMIresultColor")}
+								value={values.calculatedBMIresultColor}
+								placeholder="set Colour"
+								required>
 								<option defaultValue="black">black</option>
 								<option value="blue">blue</option>
 								<option value="brown">brown</option>
@@ -334,10 +342,10 @@ function BMIForm() {
 							<Form.Label>Inference BMI Result Color</Form.Label>
 							<br></br>
 							<Form.Select aria-label="Default select example" style={DropdownStyle}
-							 onChange={set("inferenceBMIresultColor")}
-							 value={values.inferenceBMIresultColor}
-							 placeholder="set Colour"
-							 required>
+								onChange={set("inferenceBMIresultColor")}
+								value={values.inferenceBMIresultColor}
+								placeholder="set Colour"
+								required>
 								<option defaultValue="black">black</option>
 								<option value="blue">blue</option>
 								<option value="brown">brown</option>
@@ -354,10 +362,10 @@ function BMIForm() {
 							<Form.Label>App Bar Background Color </Form.Label>
 							<br></br>
 							<Form.Select aria-label="Default select example" style={DropdownStyle}
-							 onChange={set("AppBarBackgroundColor")}
-							 value={values.AppBarBackgroundColor}
-							 placeholder="set Colour"
-							 required>
+								onChange={set("AppBarBackgroundColor")}
+								value={values.AppBarBackgroundColor}
+								placeholder="set Colour"
+								required>
 								<option defaultValue="black">black</option>
 								<option value="blue">blue</option>
 								<option value="brown">brown</option>
@@ -374,10 +382,10 @@ function BMIForm() {
 							<Form.Label>Input Area Background Color</Form.Label>
 							<br></br>
 							<Form.Select aria-label="Default select example" style={DropdownStyle}
-							 onChange={set("InputAreaBgColor")}
-							 value={values.InputAreaBgColor}
-							 placeholder="set Colour"
-							 required>
+								onChange={set("InputAreaBgColor")}
+								value={values.InputAreaBgColor}
+								placeholder="set Colour"
+								required>
 								<option defaultValue="black">black</option>
 								<option value="blue">blue</option>
 								<option value="brown">brown</option>
@@ -391,30 +399,38 @@ function BMIForm() {
 							</Form.Select>
 						</Form.Group>
 						<button
-              type="submit"
-              className="btn btn-primary"
-              id="but"
-              disabled={!values.projectName || !values.appBarText || !values.labelTextforHeightEntry || !values.InputAreaBgColor || !values.labelTextforHeightEntry || !values.labelTextforWeightEntry || !values.elevatedButtonColor || !values.elevatedButtonText || !values.elevatedButtonTextColor || !values.calculatedBMIresultColor || !values.inferenceBMIresultColor}
-            >
-              Submit
-            </button>
+							type="submit"
+							className="btn btn-primary"
+							id="but"
+							disabled={!values.projectName || !values.appBarText || !values.labelTextforHeightEntry || !values.InputAreaBgColor || !values.labelTextforHeightEntry || !values.labelTextforWeightEntry || !values.elevatedButtonColor || !values.elevatedButtonText || !values.elevatedButtonTextColor || !values.calculatedBMIresultColor || !values.inferenceBMIresultColor}
+						>
+							Submit
+						</button>
 						<button
-              type="reset"
-              className="btn btn-danger"
-			  style={{marginLeft:"20px"}}
-              disabled={
-                !values.projectName && !values.appBarText && !values.labelTextforHeightEntry &&  !values.labelTextforHeightEntry && !values.labelTextforWeightEntry &&  !values.elevatedButtonText 
-              }
-            >
-              Reset
-            </button>
+							type="reset"
+							className="btn btn-danger"
+							style={{ marginLeft: "20px" }}
+							disabled={
+								!values.projectName && !values.appBarText && !values.labelTextforHeightEntry && !values.labelTextforHeightEntry && !values.labelTextforWeightEntry && !values.elevatedButtonText
+							}
+						>
+							Reset
+						</button>
 					</Form>
 				</Modal.Body>
 			</Modal.Dialog>
-		</Container>
+			<Modal.Dialog className='min-w-[350px]'>
+				<Modal.Header closeButton>
+					<Modal.Title>Demo Screenshot for Web</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<img src={BMIWebImg} alt="BMIWebImg"></img>
+				</Modal.Body>
+			</Modal.Dialog>
+		</Container >
 	);
 }
-const DropdownStyle ={
-	border:"2px solid grey",width:"25%",borderRadius:"10px"
+const DropdownStyle = {
+	border: "2px solid grey", width: "25%", borderRadius: "10px"
 }
 export default BMIForm;

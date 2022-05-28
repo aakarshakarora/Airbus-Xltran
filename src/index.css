@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+#example {
+  flex-wrap: wrap;
+}
+
 a:-webkit-any-link {
   text-decoration: none;
   color: white;

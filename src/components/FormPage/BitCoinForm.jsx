@@ -1,27 +1,28 @@
-import React, {useEffect, useState} from "react";
-import {Container, Form, Modal} from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';	
-
+import React, { useEffect, useState } from "react";
+import { Container, Form, Modal } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+import BitCoinMobImg from '../assets/BitCoin.jpeg'
+import BitCoinWebImg from '../assets/BitCoinWeb.png'
 
 
 function BitCoinForm() {
 
-	let navigate = useNavigate();
+  let navigate = useNavigate();
 
-    let generatedCode = "";
+  let generatedCode = "";
 
-    const [getCode, setGenCode] = useState("")
-    const [projectName, setProjectName] = useState("")
-    const [APIKey, setAPIKey] = useState("")
-    const [AppTitle, setAppTitle] = useState("")
-    const [bottomContainerColor, setbottomContainerColor] = useState("")
-    const [selectCurrencyFontColor, setselectCurrencyFontColor] = useState("")
-    const [coinCardColor, setcoinCardColor] = useState("")
-    const [cardTextColor, setcardTextColor] = useState("")
+  const [getCode, setGenCode] = useState("")
+  const [projectName, setProjectName] = useState("")
+  const [APIKey, setAPIKey] = useState("")
+  const [AppTitle, setAppTitle] = useState("")
+  const [bottomContainerColor, setbottomContainerColor] = useState("")
+  const [selectCurrencyFontColor, setselectCurrencyFontColor] = useState("")
+  const [coinCardColor, setcoinCardColor] = useState("")
+  const [cardTextColor, setcardTextColor] = useState("")
 
-    function BitCoinBase(APIKey, AppTitle, bottomContainerColor, selectCurrencyFontColor, coinCardColor, cardTextColor) {
+  function BitCoinBase(APIKey, AppTitle, bottomContainerColor, selectCurrencyFontColor, coinCardColor, cardTextColor) {
 
-        return `import 'dart:convert';
+    return `import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -236,11 +237,11 @@ class CryptoCard extends StatelessWidget {
   }
 }`
 
-    }
+  }
 
-    function BitCoinDriverFx(projectName, AppTitle) {
+  function BitCoinDriverFx(projectName, AppTitle) {
 
-        return `void main() => runApp(${projectName.replaceAll(' ', '')}());
+    return `void main() => runApp(${projectName.replaceAll(' ', '')}());
 
 class ${projectName.replaceAll(' ', '')} extends StatelessWidget {
   @override
@@ -254,216 +255,232 @@ class ${projectName.replaceAll(' ', '')} extends StatelessWidget {
   }
 }`
 
+  }
+
+
+  const clearFormData = async () => {
+    setGenCode("")
+    setProjectName("")
+    setAPIKey("")
+    setAppTitle("")
+    setbottomContainerColor("")
+    setselectCurrencyFontColor("")
+    setcoinCardColor("")
+    setcardTextColor("")
+
+  };
+  const downloadTxtFile = (value, fileName) => {
+    const element = document.createElement("a");
+    const file = new Blob([value], {
+      type: "text/plain"
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = `${fileName}.txt`;
+    document.body.appendChild(element);
+    element.click();
+  };
+
+
+  const onSubmit = () => {
+
+    generatedCode += BitCoinBase(APIKey, AppTitle, bottomContainerColor, selectCurrencyFontColor, coinCardColor, cardTextColor)
+    generatedCode += BitCoinDriverFx(projectName, AppTitle)
+
+    console.log(generatedCode)
+
+    setGenCode(generatedCode)
+    downloadTxtFile(generatedCode, AppTitle);
+    navigate("/output", { state: generatedCode });
+
+  }
+
+
+  const onReset = async (e) => {
+    e.preventDefault();
+    try {
+      await clearFormData();
+    } catch (e) {
+      alert(`Failed ${e.message}`);
     }
+  };
+
+  return (
+    <Container id="example" className='flex'>
+      <Modal.Dialog className='min-w-[350px]'>
+        <Modal.Header closeButton>
+          <Modal.Title>Demo Screenshot for Mobile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img className='max-h-[700px]' src={BitCoinMobImg} alt="BitCoinMobImg"></img>
+        </Modal.Body>
+      </Modal.Dialog>
+      <Modal.Dialog className='min-w-[350px]'>
+        <Modal.Header closeButton>
+          <Modal.Title>Crypto - Convertor App</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Form onReset={onReset} onSubmit={onSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Project Name</Form.Label>
+              <Form.Control type="text" placeholder="Add Project Name"
+                value={projectName}
+                onChange={(event) => {
+                  setProjectName(event.target.value)
+                }} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>App Bar Name</Form.Label>
+              <Form.Control type="text" placeholder="App Bar Name"
+                value={AppTitle}
+                onChange={(event) => {
+                  setAppTitle(event.target.value)
+                }} />
+            </Form.Group>
 
 
-    const clearFormData = async () => {
-        setGenCode("")
-        setProjectName("")
-        setAPIKey("")
-        setAppTitle("")
-        setbottomContainerColor("")
-        setselectCurrencyFontColor("")
-        setcoinCardColor("")
-        setcardTextColor("")
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Enter API Key from <a id='link' href='https://www.coinapi.io/'
+                target="_blank">https://www.coinapi.io/</a></Form.Label>
+              <Form.Control type="text" placeholder="Enter API Key"
+                value={APIKey}
+                onChange={(event) => {
+                  setAPIKey(event.target.value)
+                }}
 
-    };
-    const downloadTxtFile = (value, fileName) => {
-        const element = document.createElement("a");
-        const file = new Blob([value], {
-            type: "text/plain"
-        });
-        element.href = URL.createObjectURL(file);
-        element.download = `${fileName}.txt`;
-        document.body.appendChild(element);
-        element.click();
-    };
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Bottom Container Color</Form.Label>
+              <br></br>
+              <Form.Select aria-label="Default select example" style={DropdownStyle}
+                onChange={(event) => {
+                  setbottomContainerColor(event.target.value)
+                }}
+                value={bottomContainerColor}
+                placeholder="set Colour"
+                required>
+                <option defaultValue="black">black</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="green">green</option>
+                <option value="grey">grey</option>
+                <option value="lime">lime</option>
+                <option value="orange">orange</option>
+                <option value="pink">pink</option>
+                <option value="red">red</option>
+                <option value="yellow">yellow</option>
+              </Form.Select>
+            </Form.Group>
 
-
-    const onSubmit = () => {
-
-        generatedCode += BitCoinBase(APIKey, AppTitle, bottomContainerColor, selectCurrencyFontColor, coinCardColor, cardTextColor)
-        generatedCode += BitCoinDriverFx(projectName, AppTitle)
-
-        console.log(generatedCode)
-
-        setGenCode(generatedCode)
-        downloadTxtFile(generatedCode, AppTitle);
-        navigate("/output",{state:generatedCode});
-
-    }
-
-
-    const onReset = async (e) => {
-        e.preventDefault();
-        try {
-            await clearFormData();
-        } catch (e) {
-            alert(`Failed ${e.message}`);
-        }
-    };
-
-    return (
-        <Container className='max-w-[1240px] mx-auto'>
-            <Modal.Dialog>
-                <Modal.Header closeButton>
-                    <Modal.Title>Crypto - Convertor App</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <Form onReset={onReset} onSubmit={onSubmit}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Project Name</Form.Label>
-                            <Form.Control type="text" placeholder="Add Project Name"
-                                          value={projectName}
-                                          onChange={(event) => {
-                                              setProjectName(event.target.value)
-                                          }}/>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>App Bar Name</Form.Label>
-                            <Form.Control type="text" placeholder="App Bar Name"
-                                          value={AppTitle}
-                                          onChange={(event) => {
-                                              setAppTitle(event.target.value)
-                                          }}/>
-                        </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Select Currency Font Color</Form.Label>
+              <br></br>
+              <Form.Select aria-label="Default select example" style={DropdownStyle}
+                onChange={(event) => {
+                  setselectCurrencyFontColor(event.target.value)
+                }}
+                value={selectCurrencyFontColor}
+                placeholder="set Colour"
+                required>
+                <option defaultValue="black">black</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="green">green</option>
+                <option value="grey">grey</option>
+                <option value="lime">lime</option>
+                <option value="orange">orange</option>
+                <option value="pink">pink</option>
+                <option value="red">red</option>
+                <option value="yellow">yellow</option>
+              </Form.Select>
+            </Form.Group>
 
 
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Enter API Key from <a id='link' href='https://www.coinapi.io/'
-                                                              target="_blank">https://www.coinapi.io/</a></Form.Label>
-                            <Form.Control type="text" placeholder="Enter API Key"
-                                          value={APIKey}
-                                          onChange={(event) => {
-                                              setAPIKey(event.target.value)
-                                          }}
-
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Bottom Container Color</Form.Label>
-                            <br></br>
-                            <Form.Select aria-label="Default select example" style={DropdownStyle}
-                                         onChange={(event) => {
-                                             setbottomContainerColor(event.target.value)
-                                         }}
-                                         value={bottomContainerColor}
-                                         placeholder="set Colour"
-                                         required>
-                                <option defaultValue="black">black</option>
-                                <option value="blue">blue</option>
-                                <option value="brown">brown</option>
-                                <option value="green">green</option>
-                                <option value="grey">grey</option>
-                                <option value="lime">lime</option>
-                                <option value="orange">orange</option>
-                                <option value="pink">pink</option>
-                                <option value="red">red</option>
-                                <option value="yellow">yellow</option>
-                            </Form.Select>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label>Select Currency Font Color</Form.Label>
-                            <br></br>
-                            <Form.Select aria-label="Default select example" style={DropdownStyle}
-                                         onChange={(event) => {
-                                             setselectCurrencyFontColor(event.target.value)
-                                         }}
-                                         value={selectCurrencyFontColor}
-                                         placeholder="set Colour"
-                                         required>
-                                <option defaultValue="black">black</option>
-                                <option value="blue">blue</option>
-                                <option value="brown">brown</option>
-                                <option value="green">green</option>
-                                <option value="grey">grey</option>
-                                <option value="lime">lime</option>
-                                <option value="orange">orange</option>
-                                <option value="pink">pink</option>
-                                <option value="red">red</option>
-                                <option value="yellow">yellow</option>
-                            </Form.Select>
-                        </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Set Coin Card Color</Form.Label>
+              <br></br>
+              <Form.Select aria-label="Default select example" style={DropdownStyle}
+                onChange={(event) => {
+                  setcoinCardColor(event.target.value)
+                }}
+                value={coinCardColor}
+                placeholder="set Colour"
+                required>
+                <option defaultValue="black">black</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="green">green</option>
+                <option value="grey">grey</option>
+                <option value="lime">lime</option>
+                <option value="orange">orange</option>
+                <option value="pink">pink</option>
+                <option value="red">red</option>
+                <option value="yellow">yellow</option>
+              </Form.Select>
+            </Form.Group>
 
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Set Coin Card Color</Form.Label>
-                            <br></br>
-                            <Form.Select aria-label="Default select example" style={DropdownStyle}
-                                         onChange={(event) => {
-                                             setcoinCardColor(event.target.value)
-                                         }}
-                                         value={coinCardColor}
-                                         placeholder="set Colour"
-                                         required>
-                                <option defaultValue="black">black</option>
-                                <option value="blue">blue</option>
-                                <option value="brown">brown</option>
-                                <option value="green">green</option>
-                                <option value="grey">grey</option>
-                                <option value="lime">lime</option>
-                                <option value="orange">orange</option>
-                                <option value="pink">pink</option>
-                                <option value="red">red</option>
-                                <option value="yellow">yellow</option>
-                            </Form.Select>
-                        </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Card Text Color</Form.Label>
+              <br></br>
+              <Form.Select aria-label="Default select example" style={DropdownStyle}
+                onChange={(event) => {
+                  setcardTextColor(event.target.value)
+                }}
+                value={cardTextColor}
+                placeholder="set Colour"
+                required>
+                <option defaultValue="black">black</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="green">green</option>
+                <option value="grey">grey</option>
+                <option value="lime">lime</option>
+                <option value="orange">orange</option>
+                <option value="pink">pink</option>
+                <option value="red">red</option>
+                <option value="yellow">yellow</option>
+              </Form.Select>
+            </Form.Group>
 
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Card Text Color</Form.Label>
-                            <br></br>
-                            <Form.Select aria-label="Default select example" style={DropdownStyle}
-                                         onChange={(event) => {
-                                             setcardTextColor(event.target.value)
-                                         }}
-                                         value={cardTextColor}
-                                         placeholder="set Colour"
-                                         required>
-                                <option defaultValue="black">black</option>
-                                <option value="blue">blue</option>
-                                <option value="brown">brown</option>
-                                <option value="green">green</option>
-                                <option value="grey">grey</option>
-                                <option value="lime">lime</option>
-                                <option value="orange">orange</option>
-                                <option value="pink">pink</option>
-                                <option value="red">red</option>
-                                <option value="yellow">yellow</option>
-                            </Form.Select>
-                        </Form.Group>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              id="but"
+              onClick={onSubmit}
+              disabled={!APIKey || !AppTitle || !bottomContainerColor || !selectCurrencyFontColor || !coinCardColor || !cardTextColor || !projectName}
+            >
+              Submit
+            </button>
+            <button
+              type="reset"
+              className="btn btn-danger"
+              style={{ marginLeft: "20px" }}
 
+              disabled={!APIKey && !AppTitle && !bottomContainerColor && !selectCurrencyFontColor && !coinCardColor && !cardTextColor && !projectName}
 
-                        <button
-                            type="submit"
-                            className="btn btn-primary"
-                            id="but"
-                            onClick={onSubmit}
-                            disabled={!APIKey || !AppTitle || !bottomContainerColor  || !selectCurrencyFontColor  || !coinCardColor  || !cardTextColor || !projectName }
-                        >
-                            Submit
-                        </button>
-                        <button
-                            type="reset"
-                            className="btn btn-danger"
-                            style={{marginLeft: "20px"}}
-
-                            disabled={!APIKey && !AppTitle && !bottomContainerColor && !selectCurrencyFontColor && !coinCardColor && !cardTextColor && !projectName}
-
-                        >
-                            Reset
-                        </button>
-                    </Form>
-                </Modal.Body>
-            </Modal.Dialog>
-        </Container>
-    );
+            >
+              Reset
+            </button>
+          </Form>
+        </Modal.Body>
+      </Modal.Dialog>
+      <Modal.Dialog className='min-w-[350px]'>
+        <Modal.Header closeButton>
+          <Modal.Title>Demo Screenshot for Web</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img src={BitCoinWebImg} alt="BitCoinWebImg"></img>
+        </Modal.Body>
+      </Modal.Dialog>
+    </Container >
+  );
 }
 
 const DropdownStyle = {
-    border: "2px solid grey", width: "25%", borderRadius: "10px"
+  border: "2px solid grey", width: "25%", borderRadius: "10px"
 }
 export default BitCoinForm;

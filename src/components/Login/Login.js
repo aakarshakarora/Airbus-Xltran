@@ -7,6 +7,7 @@ import {
 } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Login.css";
+import logoImg from "../assets/logo.jpg";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -24,7 +25,12 @@ function Login() {
 
   return (
     <div>
-      <div className="login">
+      <div className="d-flex-row login">
+        <div className="logo d-flex">
+          <img className="max-w-[60px]" src={logoImg} alt="logo"></img>
+          <h1>Xltran</h1>
+        </div>
+
         <div className="login__container">
           <input
             type="text"
@@ -65,7 +71,7 @@ function Login() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
