@@ -12,7 +12,7 @@ These templates may be customised by the user, and then the code can be copied.
 * Crypto-Converter App
 * Quiz App
 
-## Delpyed Website Link
+## Deployed Website Link
 - https://airbus-xltran.web.app/
 
 ## Tech Stack
