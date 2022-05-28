@@ -300,7 +300,7 @@ class _${projectName.replaceAll(' ', '')}State extends State<${projectName.repla
         generatedCode += QuestionAnswer()
         generatedCode += QuizDriverFx(AppBarColor, QuizAppFormTitle, QuizAppFormBgColor, projectName)
         setGenCode(generatedCode)
-        downloadTxtFile(getCode,QuizAppFormTitle)
+        downloadTxtFile(generatedCode,QuizAppFormTitle)
 		navigate("/output",{state:generatedCode});
 
 
