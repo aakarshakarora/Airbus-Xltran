@@ -1,6 +1,6 @@
 # Xltran
 
-Xltran is an app generator that allows users to create beautiful application/webapp and  configure it to their specifications. Users receive Flutter code for the customised mobile and/or web app so that they can incorporate the code into their projects.
+Xltran is an app genejajarator that allows users to create beautiful application/webapp and  configure it to their specifications. Users receive Flutter code for the customised mobile and/or web app so that they can incorporate the code into their projects.
 The users have the choice of selecting following templates - 
 BMI Calculator
 Crypto-Converter App
